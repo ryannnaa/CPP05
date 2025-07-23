@@ -1,17 +1,9 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat()
 	: _name("Default"), _grade(150)
 {}
-
-Bureaucrat::Bureaucrat(const std::string& name, int grade)
-       : _name(name), _grade(grade)
-{		
-	if (grade < 1)
-		throw GradeTooHighException();
-	else if (grade > 150)
-		throw GradeTooLowException();
-}
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other)
 	: _name(other.getName()), _grade(other.getGrade())

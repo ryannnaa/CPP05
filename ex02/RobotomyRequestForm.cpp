@@ -1,5 +1,5 @@
 #include "RobotomyRequestForm.hpp"
-#include <stdlib>
+#include <cstdlib>
 #include <ctime>
 
 RobotomyRequestForm::RobotomyRequestForm()
@@ -7,7 +7,7 @@ RobotomyRequestForm::RobotomyRequestForm()
 {}
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
-	: AForm("RobotomyRequestForm", 72, 45), _target(target);
+	: AForm("RobotomyRequestForm", 72, 45), _target(target)
 {}
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
@@ -18,16 +18,17 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 {
 	if (this != &other)
 	{
-		_sign = other.getSigned();
+		setSigned(other.getSigned());
 	}
+	return (*this);
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()
 {}
 
-void RobotomyRequestForm::execute(Bureaucrat const & executor)
+void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
-	executeCheck();
+	executeCheck(executor);
 
 	std::srand(std::time(NULL));
 	std::string s1 = "Success!";

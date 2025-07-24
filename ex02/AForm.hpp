@@ -24,9 +24,11 @@ class AForm
 		int getSignGrade() const;
 		int getExecGrade() const;
 
+		void setSigned(bool b);
+
 		void beSigned(const Bureaucrat& other);
-		void executeCheck(Bureaucrat const & executor);
-		virtual void execute(Bureaucrat const & executor) = 0;
+		void executeCheck(Bureaucrat const & executor) const;
+		virtual void execute(Bureaucrat const & executor) const = 0;
 
 	class GradeTooHighException : public std::exception
 	{

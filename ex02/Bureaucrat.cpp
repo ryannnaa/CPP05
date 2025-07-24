@@ -5,6 +5,10 @@ Bureaucrat::Bureaucrat()
 	: _name("Default"), _grade(150)
 {}
 
+Bureaucrat::Bureaucrat(const std::string& name, int grade)
+	: _name(name), _grade(grade)
+{}
+
 Bureaucrat::Bureaucrat(const Bureaucrat& other)
 	: _name(other.getName()), _grade(other.getGrade())
 {}
@@ -47,7 +51,7 @@ void Bureaucrat::signForm(AForm& f)
 {
 	try
 	{
-		f.beSigned(this);
+		f.beSigned(*this);
 		std::cout << getName() << " signed " << f.getName() << std::endl;
 	}
 	catch (const AForm::GradeTooLowException& e)
@@ -64,11 +68,11 @@ void Bureaucrat::execForm(AForm const & form)
 	}
 	catch (const AForm::GradeTooLowException& e)
 	{
-		std::cout << getName() << " couldn't execute " << f.getName() << " because " << e.what() << std::endl;
+		std::cout << getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
 	}
 	catch (const AForm::FormNotSignedException& e)
 	{
-		std::cout << getName() << " couldn't execute " << f.getName() << " because " << e.what() << std::endl;
+		std::cout << getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
 	}
 }
 

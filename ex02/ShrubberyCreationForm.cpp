@@ -6,7 +6,7 @@ ShrubberyCreationForm::ShrubberyCreationForm()
 {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
-	: AForm("ShrubberyCreationForm", 145, 137), _target(target);
+	: AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {}
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
@@ -17,17 +17,18 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 {
 	if (this != &other)
 	{
-		_sign = other.getSigned();
+		setSigned(other.getSigned());
 	}
+	return (*this);
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {}
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor)
+void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-	executeCheck();
-	std::ofstream outFile(_target);
+	executeCheck(executor);
+	std::ofstream outFile(_target.c_str());
 	if (!outFile)
 	{
 		std::cerr << "Error: Failed to open file" << std::endl;
@@ -40,8 +41,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor)
 	outFile << "      /****\\              /\\\n";
 	outFile << "     /******\\            /**\\\n";
 	outFile << "    /********\\          /****\\\n";
-	outFile << "       ||||                ||\n";
-	outFile << "       ||||                ||\n";
-	outFile << "       ||||                ||\n";
+	outFile << "       ||||               ||\n";
+	outFile << "       ||||               ||\n";
+	outFile << "       ||||               ||\n";
 	outFile.close();	
 }

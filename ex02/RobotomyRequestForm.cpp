@@ -31,8 +31,8 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	executeCheck(executor);
 
 	std::srand(std::time(NULL));
-	std::string s1 = "Success!";
-	std::string s2 = "Failed!";
+	std::string s1 = "succeeded!";
+	std::string s2 = "failed!";
 	std::string output;
 
 	if (std::rand() % 2 == 0)

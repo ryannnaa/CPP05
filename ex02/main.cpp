@@ -13,6 +13,7 @@ int main ()
 		ShrubberyCreationForm f("home");
 		Bureaucrat b("Officer", 1);
 		b.signForm(f);
+		std::cout << &f << std::endl;
 		b.execForm(f);
 	}
 	catch (const std::exception& e)

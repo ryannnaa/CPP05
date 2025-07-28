@@ -3,17 +3,36 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include <iostream>
 
 int main ()
 {
+	std::cout << "[ Wrong Form Name ]" << std::endl;
+	try
+	{
+		Intern i;
+		AForm *f;
+		f = i.makeForm("WrongName", "home");
+		std::cout << f << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+	std::cout << std::endl;
+
 	std::cout << "[ Shrubbery Success ]" << std::endl;
 	try
 	{
-		ShrubberyCreationForm f("home");
+		Intern i;
+		AForm *f;
+		f = i.makeForm("Shrubbery Creation", "home");
 		Bureaucrat b("Officer", 1);
-		b.signForm(f);
-		b.execForm(f);
+		b.signForm(*f);
+		std::cout << f << std::endl;
+		b.execForm(*f);
+		delete f;
 	}
 	catch (const std::exception& e)
 	{
@@ -51,10 +70,13 @@ int main ()
 	std::cout << "[ Robotomy Success ]" << std::endl;
 	try
 	{
-		RobotomyRequestForm f("home");
+		Intern i;
+		AForm *f;
+		f = i.makeForm("Robotomy Request", "home");
 		Bureaucrat b("Officer", 1);
-		b.signForm(f);
-		b.execForm(f);
+		b.signForm(*f);
+		b.execForm(*f);
+		delete f;
 	}
 	catch (const std::exception& e)
 	{
@@ -92,10 +114,13 @@ int main ()
 	std::cout << "[ Presidential Success ]" << std::endl;
 	try
 	{
-		PresidentialPardonForm f("home");
+		Intern i;
+		AForm *f;
+		f = i.makeForm("Presidential Pardon", "home");
 		Bureaucrat b("Officer", 1);
-		b.signForm(f);
-		b.execForm(f);
+		b.signForm(*f);
+		b.execForm(*f);
+		delete f;
 	}
 	catch (const std::exception& e)
 	{

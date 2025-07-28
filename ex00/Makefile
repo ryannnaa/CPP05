@@ -1,27 +1,42 @@
-CXX := c++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++98
+# === Compiler and Flags ===
+CXX       := c++
+CXXFLAGS  := -Wall -Wextra -Werror -std=c++98 -Iinc -MMD -MP
 
-NAME := a.out
+# === Directories ===
+SRC_DIR   := src
+INC_DIR   := inc
+OBJ_DIR   := obj
 
-SRCS := main.cpp Bureaucrat.cpp
-OBJS := ${SRCS:.cpp=.o}
-DEPS := ${OBJS:.o=.d}
+# === Output Name ===
+NAME      := a.out
 
-all: ${NAME}
+# === Source Files (manually list them here, relative to src/) ===
+SRC_FILES := main.cpp Bureaucrat.cpp 
 
-${NAME}: ${OBJS}
-	${CXX} ${CXXFLAGS} ${OBJS} -o $@
+# === Source Paths ===
+SRCS      := $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
-%.o: %.cpp
-	${CXX} ${CXXFLAGS} -c $< -o $@
-	
--include ${DEPS}
+# === Object and Dependency Paths ===
+OBJS      := $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
+DEPS      := $(OBJS:.o=.d)
+
+# === Rules ===
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+-include $(DEPS)
 
 clean:
-	rm -rf ${OBJS} ${DEPS}
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf ${NAME}
+	rm -f $(NAME)
 
 re: fclean all
 
